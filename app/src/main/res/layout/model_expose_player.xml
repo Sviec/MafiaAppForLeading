@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp">
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="10"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:layout_marginStart="15dp"
+        android:lines="1"
+        android:text="Sviec"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/number"
+        app:layout_constraintStart_toEndOf="@id/number"
+        app:layout_constraintTop_toTopOf="@+id/number" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exposeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Выставить"
+        android:background="@drawable/add_button_shape"
+        android:paddingHorizontal="15dp"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

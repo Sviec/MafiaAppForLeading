@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Mafia</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string-array name="roles">
+        <item>Нет роли</item>
+        <item>Мирный</item>
+        <item>Мафия</item>
+        <item>Маньяк</item>
+        <item>Доктор</item>
+        <item>Комиссар</item>
+        <item>Красотка</item>
+    </string-array>
+</resources>

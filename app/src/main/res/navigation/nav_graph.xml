@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/introductionFragment"
+        android:name="com.example.mafia.ui.fragments.IntroductionFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_introduction" >
+        <action
+            android:id="@+id/action_introductionFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_introductionFragment_to_exposeFragment"
+            app:destination="@id/exposeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.mafia.ui.fragments.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_introductionFragment"
+            app:destination="@id/introductionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.mafia.ui.fragments.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/votingFragment"
+        android:name="com.example.mafia.ui.fragments.VotingFragment"
+        android:label="fragment_voting"
+        tools:layout="@layout/fragment_voting" >
+        <action
+            android:id="@+id/action_votingFragment_to_nightFragment"
+            app:destination="@id/nightFragment" />
+        <action
+            android:id="@+id/action_votingFragment_to_endFragment"
+            app:destination="@id/endFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nightFragment"
+        android:name="com.example.mafia.ui.fragments.NightFragment"
+        android:label="fragment_night"
+        tools:layout="@layout/fragment_night" >
+
+        <action
+            android:id="@+id/action_nightFragment_to_exposeFragment"
+            app:destination="@id/exposeFragment" />
+        <action
+            android:id="@+id/action_nightFragment_to_endFragment"
+            app:destination="@id/endFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exposeFragment"
+        android:name="com.example.mafia.ui.fragments.ExposeFragment"
+        android:label="fragment_expose"
+        tools:layout="@layout/fragment_expose" >
+        <action
+            android:id="@+id/action_exposeFragment_to_votingFragment"
+            app:destination="@id/votingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/endFragment"
+        android:name="com.example.mafia.ui.fragments.EndFragment"
+        android:label="fragment_end"
+        tools:layout="@layout/fragment_end" >
+        <action
+            android:id="@+id/action_endFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+</navigation>
