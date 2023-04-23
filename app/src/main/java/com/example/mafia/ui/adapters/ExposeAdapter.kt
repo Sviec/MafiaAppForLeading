@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mafia.R
 import com.example.mafia.databinding.ModelExposePlayerBinding
 import com.example.mafia.entity.Player
 
@@ -26,9 +27,11 @@ class ExposeAdapter(
             exposeButton.setOnClickListener {
                 if (item.isExpose) {
                     item.isExpose = false
-                    exposeButton.text = "Выставить игрока"
+                    exposeButton.setBackgroundColor(root.resources.getColor(R.color.red))
+                    exposeButton.text = "Выставить"
                 } else {
                     item.isExpose = true
+                    exposeButton.setBackgroundColor(root.resources.getColor(R.color.dark_grey))
                     exposeButton.text = "Отмена"
                 }
             }

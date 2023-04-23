@@ -84,10 +84,19 @@ class VotingFragment : Fragment() {
         val player = viewModel.currentPlayersFlow.value.maxBy { it.votes }
         player.isDead = true
         dialogBinding.playerInfo.text = "${player.number}  ${player.nickname}"
-        viewModel.currentPlayersFlow.value.forEach { it.votes = 0 }
+        viewModel.currentPlayersFlow.value.forEach {
+            it.votes = 0
+            it.isExpose = false
+        }
         dialogBinding.nextButton.setOnClickListener {
-            val act = VotingFragmentDirections.actionVotingFragmentToNightFragment()
-            findNavController().navigate(act)
+            val winner = viewModel.checkWin()
+            if (winner > 0) {
+                val act = VotingFragmentDirections.actionVotingFragmentToEndFragment(winner)
+                findNavController().navigate(act)
+            } else {
+                val act = VotingFragmentDirections.actionVotingFragmentToNightFragment()
+                findNavController().navigate(act)
+            }
             dialog.dismiss()
         }
         dialog.show()

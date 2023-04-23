@@ -107,6 +107,7 @@ class IntroductionFragment : Fragment() {
             .create()
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialogBinding.nextButton.setOnClickListener {
+            viewModel.setRoles()
             val act = IntroductionFragmentDirections.actionIntroductionFragmentToExposeFragment()
             findNavController().navigate(act)
             dialog.dismiss()

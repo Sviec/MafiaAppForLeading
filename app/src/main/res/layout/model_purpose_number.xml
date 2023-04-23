@@ -4,17 +4,25 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="10dp"
-    app:cardBackgroundColor="@color/red"
     app:cardCornerRadius="10dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/number"
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="10dp"
-        android:text="1"
-        android:textColor="@color/white"
-        android:textSize="32sp" />
+        android:background="@color/dark_grey">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="10dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+    </FrameLayout>
+
 
 </androidx.cardview.widget.CardView>

@@ -73,5 +73,8 @@
         <action
             android:id="@+id/action_endFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="winner"
+            app:argType="integer" />
     </fragment>
 </navigation>
