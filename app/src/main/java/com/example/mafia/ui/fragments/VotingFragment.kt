@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.mafia.R
 import com.example.mafia.databinding.DialogEliminatedPlayerBinding
 import com.example.mafia.databinding.DialogTransitionBinding
 import com.example.mafia.databinding.FragmentVotingBinding
@@ -59,7 +60,7 @@ class VotingFragment : Fragment() {
 
     private fun votingResultsDialog() {
         val dialogBinding = DialogTransitionBinding.inflate(layoutInflater)
-        dialogBinding.title.text = "Подтвердить итоги голосования?"
+        dialogBinding.title.text = resources.getText(R.string.confirm_voting_results)
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogBinding.root)
             .create()

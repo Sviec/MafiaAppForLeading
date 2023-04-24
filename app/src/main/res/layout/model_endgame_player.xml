@@ -9,7 +9,7 @@
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="1"
+        android:text="@string/number_example"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sviec"
+        android:text="@string/nickname_example"
         android:textSize="24sp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +29,7 @@
         android:id="@+id/points"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="+1"
+        android:text="@string/points_example"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mafia.R
 import com.example.mafia.databinding.DialogTransitionBinding
 import com.example.mafia.databinding.FragmentNightBinding
 import com.example.mafia.entity.Player
@@ -55,7 +56,7 @@ class NightFragment : Fragment() {
 
     private fun confirmNightResultsDialog() {
         val dialogBinding = DialogTransitionBinding.inflate(layoutInflater)
-        dialogBinding.title.text = "Подтвердить итоги ночи?"
+        dialogBinding.title.text = resources.getText(R.string.confirm_night_results)
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogBinding.root)
             .create()

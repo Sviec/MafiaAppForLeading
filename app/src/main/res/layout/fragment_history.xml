@@ -11,7 +11,7 @@
         android:id="@+id/lastGamesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Последние проведенные игры"
+        android:text="@string/last_games_title"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
         android:textSize="24sp"

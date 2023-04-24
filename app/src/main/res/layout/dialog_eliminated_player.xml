@@ -17,7 +17,7 @@
             android:gravity="center"
             android:paddingHorizontal="15dp"
             android:paddingTop="30dp"
-            android:text="Игру покидает игрок:"
+            android:text="@string/eliminated_player_title"
             android:textColor="@color/grey"
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +29,7 @@
             android:paddingHorizontal="15dp"
             android:paddingVertical="20dp"
             android:gravity="center"
-            android:text="7 Sviec"
+            android:text="@string/player_example"
             android:textColor="@color/grey"
             android:textSize="28sp"
             app:layout_constraintTop_toBottomOf="@id/title"/>
@@ -39,10 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/dark_grey"
-            android:text="Далее"
+            android:text="@string/next"
             android:textSize="20sp"
             android:textColor="@color/grey"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playerInfo" />" />
+            app:layout_constraintTop_toBottomOf="@+id/playerInfo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

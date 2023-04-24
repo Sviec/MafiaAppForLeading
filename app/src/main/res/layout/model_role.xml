@@ -13,7 +13,7 @@
         android:layout_marginStart="15dp"
         android:ellipsize="end"
         android:lines="1"
-        android:text="Мафия"
+        android:text="@string/role_example"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         android:id="@+id/purposeRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Игрок не выбран"
+        android:text="@string/player_not_choose"
         android:layout_marginEnd="20dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/role"

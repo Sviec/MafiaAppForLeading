@@ -2,7 +2,39 @@
     <string name="app_name">Mafia</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="finish_game">Завершить</string>
+    <string name="add_player_title">Добавить игрока</string>
+    <string name="number">Номер</string>
+    <string name="nickname">Никнейм</string>
+    <string name="cancel">Отмена</string>
+    <string name="add_player_button">Добавить</string>
+    <string name="player_example">7 Sviec</string>
+    <string name="next">Далее</string>
+    <string name="eliminated_player_title">Игру покидает игрок:</string>
+    <string name="confirm_player_list">Подтвердить список игроков?</string>
+    <string name="confirm_night_results">Подтвердить итоги ночи?</string>
+    <string name="confirm_voting_results">Подтвердить итоги голосования?</string>
+    <string name="confirm_exposed_players">Подтвердить выставленных игроков?</string>
+    <string name="day">День</string>
+    <string name="last_games_title">Последние проведенные игры</string>
+    <string name="intro_title">Знакомство</string>
+    <string name="players_list">Список игроков</string>
+    <string name="start_game">Начать игру</string>
+    <string name="night">Ночь</string>
+    <string name="voting">Голосование</string>
+    <string name="number_example">1</string>
+    <string name="nickname_example">Sviec</string>
+    <string name="points_example">+1</string>
+    <string name="expose">Выставить</string>
+    <string name="role_example">Мафия</string>
+    <string name="number_hint">№</string>
+    <string name="nickname_hint">Nickname here</string>
+    <string name="player_not_choose">Игрок не выбран</string>
+    <string name="votes">0</string>
+    <string name="mafia_win">"Мафия победила"</string>
+    <string name="maniac_win">"Маньяк победил"</string>
+    <string name="peaceful_win">"Мирные победили"</string>
+    <string name="draw">Ничья</string>
 
     <string-array name="roles">
         <item>Нет роли</item>

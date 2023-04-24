@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:paddingHorizontal="15dp"
             android:paddingVertical="10dp"
-            android:text="1"
+            android:text="@string/number_example"
             android:textColor="@color/white"
             android:textSize="32sp" />
     </FrameLayout>

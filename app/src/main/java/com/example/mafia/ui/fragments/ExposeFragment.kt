@@ -58,7 +58,7 @@ class ExposeFragment : Fragment() {
 
     private fun confirmExposePlayersDialog() {
         val dialogBinding = DialogTransitionBinding.inflate(layoutInflater)
-        dialogBinding.title.text = "Подтвердить выставленных игроков?"
+        dialogBinding.title.text = resources.getText(R.string.confirm_exposed_players)
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogBinding.root)
             .create()

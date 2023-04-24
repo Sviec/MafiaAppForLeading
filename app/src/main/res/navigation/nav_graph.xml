@@ -70,11 +70,11 @@
         android:name="com.example.mafia.ui.fragments.EndFragment"
         android:label="fragment_end"
         tools:layout="@layout/fragment_end" >
-        <action
-            android:id="@+id/action_endFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
         <argument
             android:name="winner"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_endFragment_to_introductionFragment"
+            app:destination="@id/introductionFragment" />
     </fragment>
 </navigation>

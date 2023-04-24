@@ -45,6 +45,10 @@ class IntroductionFragment : Fragment() {
 
         viewModel.currentPlayersFlow.onEach {
             adapter.submitList(it)
+            it.onEach { player ->
+                player.points = 0
+                player.isDead = false
+            }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.addButton.setOnClickListener {
@@ -87,7 +91,8 @@ class IntroductionFragment : Fragment() {
                             "",
                             isExpose = false,
                             isDead = false,
-                            0
+                            votes = 0,
+                            points = 0
                         )
                     )
                     dialog.dismiss()
