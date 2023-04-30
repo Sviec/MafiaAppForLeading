@@ -18,6 +18,7 @@ import com.example.mafia.entity.Player
 import com.example.mafia.entity.Roles
 import com.example.mafia.ui.adapters.IntroAdapter
 import com.example.mafia.ui.viewmodels.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -48,6 +49,7 @@ class IntroductionFragment : Fragment() {
             it.onEach { player ->
                 player.points = 0
                 player.isDead = false
+                player.role = Roles.NoRule.name_ru
             }
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
@@ -60,13 +62,43 @@ class IntroductionFragment : Fragment() {
             findNavController().navigate(act)
         }
         binding.nextButton.setOnClickListener {
-            confirmPlayersListDialog()
+            val isError = checkFilling()
+            if (isError.isBlank()) {
+                confirmPlayersListDialog()
+            } else {
+                Snackbar.make(binding.root, isError, Snackbar.LENGTH_SHORT)
+                    .setTextMaxLines(3)
+                    .show()
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun checkFilling(): String {
+        val players = viewModel.currentPlayersFlow.value
+        val uniqueNumbers = mutableListOf<Int>()
+        val uniqueNicknames = mutableListOf<String>()
+        var errorText = ""
+        players.forEach {
+            if (it.role == Roles.NoRule.name_ru) {
+                errorText += "Игрок ${it.number} без роли\n"
+            }
+            if (uniqueNumbers.contains(it.number)) {
+                errorText += "Потворяется номер ${it.number}\n"
+            } else {
+                uniqueNumbers.add(it.number)
+            }
+            if (uniqueNicknames.contains(it.nickname)) {
+                errorText += "Потворяется никнейм ${it.nickname}\n"
+            } else {
+                uniqueNicknames.add(it.nickname)
+            }
+        }
+        return errorText
     }
 
     private fun addPlayerDialog() {

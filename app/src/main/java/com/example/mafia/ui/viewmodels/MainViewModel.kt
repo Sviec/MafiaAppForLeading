@@ -1,6 +1,7 @@
 package com.example.mafia.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.example.mafia.entity.NightResults
 import com.example.mafia.entity.Player
 import com.example.mafia.entity.Roles
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,25 +37,47 @@ class MainViewModel : ViewModel() {
                 Roles.Mafia -> {
                     if (it.purpose!!.role == Roles.Whore.name_ru) {
                         it.purpose!!.isDead = true
+                        NightResults.LastDeath.players.add(it.purpose!!)
                         Roles.Whore.purpose!!.isDead = true
+                        NightResults.LastDeathByWhore.players.add(Roles.Whore.purpose!!)
                     } else if (it.purpose != Roles.Whore.purpose) {
                         it.purpose!!.isDead = true
+                        NightResults.LastDeath.players.add(it.purpose!!)
+                    } else {
+                        NightResults.LastSavedByWhore.players.add(it.purpose!!)
                     }
                 }
                 Roles.Maniac -> {
                     if (it.purpose!!.role == Roles.Whore.name_ru) {
                         it.purpose!!.isDead = true
+                        NightResults.LastDeath.players.add(it.purpose!!)
                         Roles.Whore.purpose!!.isDead = true
+                        NightResults.LastDeathByWhore.players.add(Roles.Whore.purpose!!)
                     } else if (it.purpose != Roles.Whore.purpose) {
                         it.purpose!!.isDead = true
+                        NightResults.LastDeath.players.add(it.purpose!!)
+                    } else {
+                        NightResults.LastSavedByWhore.players.add(it.purpose!!)
                     }
                 }
                 Roles.Doctor -> {
                     if (it.purpose!!.role == Roles.Whore.name_ru) {
-                        it.purpose!!.isDead = false
-                        Roles.Whore.purpose!!.isDead = false
+                        if (it.purpose!!.isDead) {
+                            NightResults.LastDeath.players.remove(it.purpose!!)
+                            NightResults.LastDeathByWhore.players.remove(Roles.Whore.purpose!!)
+                            NightResults.LastSavedByDoctor.players.add(it.purpose!!)
+                            NightResults.LastSavedByDoctor.players.add(Roles.Whore.purpose!!)
+                            it.purpose!!.isDead = false
+                            Roles.Whore.purpose!!.isDead = false
+                        }
                     } else {
-                        it.purpose!!.isDead = false
+                        if (it.purpose!!.isDead) {
+                            if (NightResults.LastDeath.players.contains(it.purpose!!))
+                                NightResults.LastDeath.players.remove(it.purpose!!)
+                            else NightResults.LastDeathByWhore.players.remove(it.purpose!!)
+                            NightResults.LastSavedByDoctor.players.add(it.purpose!!)
+                            it.purpose!!.isDead = false
+                        }
                     }
                     if ((it.purpose == Roles.Mafia.purpose || it.purpose == Roles.Maniac.purpose) &&
                         it.purpose!!.role != Roles.Mafia.name_ru ||
@@ -66,7 +89,7 @@ class MainViewModel : ViewModel() {
                     }
                 }
                 Roles.Whore -> {
-                    if (it.purpose == Roles.Mafia.purpose || it.purpose == Roles.Maniac.purpose &&
+                    if ((it.purpose == Roles.Mafia.purpose || it.purpose == Roles.Maniac.purpose) &&
                         it.players.count { player -> !player.isDead } > 0
                     ) {
                         it.players.forEach { player ->
@@ -91,6 +114,19 @@ class MainViewModel : ViewModel() {
                 else -> {}
             }
         }
+    }
+
+    fun printNightResults(): String {
+        var results = ""
+        if (NightResults.LastDeath.players.isNotEmpty())
+            results += "Убиты игроки ${NightResults.LastDeath.players.forEach { it.number }}\n"
+        if (NightResults.LastDeathByWhore.players.isNotEmpty())
+            results += "Красотка забрала ${NightResults.LastDeathByWhore.players.forEach { it.number }}"
+        if (NightResults.LastSavedByDoctor.players.isNotEmpty())
+            results += "Доктор спас ${NightResults.LastSavedByDoctor.players.forEach { it.number }}"
+        if (NightResults.LastSavedByWhore.players.isNotEmpty())
+            results += "Красотка спасла ${NightResults.LastSavedByWhore.players.forEach { it.number }}"
+        return results
     }
 
     fun checkWin(): Int {

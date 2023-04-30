@@ -7,5 +7,5 @@ data class Player(
     var isExpose: Boolean,
     var isDead: Boolean,
     var votes: Int,
-    var points: Int
+    var points: Int,
 )

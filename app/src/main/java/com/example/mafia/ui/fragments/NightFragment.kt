@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mafia.R
+import com.example.mafia.databinding.DialogEliminatedPlayerBinding
 import com.example.mafia.databinding.DialogTransitionBinding
 import com.example.mafia.databinding.FragmentNightBinding
+import com.example.mafia.entity.NightResults
 import com.example.mafia.entity.Player
 import com.example.mafia.entity.Roles
 import com.example.mafia.ui.adapters.RolesAdapter
@@ -63,6 +65,28 @@ class NightFragment : Fragment() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialogBinding.nextButton.setOnClickListener {
             viewModel.nightResults()
+            nightResultsDialog()
+            dialog.dismiss()
+        }
+        dialogBinding.cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun nightResultsDialog() {
+        val dialogBinding = DialogEliminatedPlayerBinding.inflate(layoutInflater)
+        dialogBinding.title.text = "Итоговые результаты ночи"
+        dialogBinding.playerInfo.text = viewModel.printNightResults()
+        val dialog = AlertDialog.Builder(requireContext())
+            .setCancelable(false)
+            .setView(dialogBinding.root)
+            .create()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogBinding.nextButton.setOnClickListener {
+            NightResults.values().forEach {
+                it.players.clear()
+            }
             val winner = viewModel.checkWin()
             if (winner > 0) {
                 val act = NightFragmentDirections.actionNightFragmentToEndFragment(winner)
@@ -71,9 +95,6 @@ class NightFragment : Fragment() {
                 val act = NightFragmentDirections.actionNightFragmentToExposeFragment()
                 findNavController().navigate(act)
             }
-            dialog.dismiss()
-        }
-        dialogBinding.cancelButton.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()

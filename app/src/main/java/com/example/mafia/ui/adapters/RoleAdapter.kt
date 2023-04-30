@@ -1,7 +1,7 @@
 package com.example.mafia.ui.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,7 +13,7 @@ import com.example.mafia.entity.Player
 class RoleAdapter(
     private val onItemClick: (Player) -> Unit
 ) : ListAdapter<Player, RoleViewHolder>(RoleDiffUtil()) {
-    private val isClicked = mutableListOf<View>()
+    private var singleItemSelectionPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoleViewHolder {
         return RoleViewHolder(
@@ -25,25 +25,29 @@ class RoleAdapter(
         val item = getItem(position)
         with (holder.binding) {
             number.text = item.number.toString()
+            if (singleItemSelectionPosition == position) {
+                frame.setBackgroundColor(root.resources.getColor(R.color.red))
+            } else {
+                frame.setBackgroundColor(Color.TRANSPARENT)
+            }
             root.setOnClickListener {
                 onItemClick(item)
-                if (isClicked.contains(it)) {
-                    frame.setBackgroundColor(root.resources.getColor(R.color.dark_grey))
-                    isClicked.remove(it)
-                } else if (isClicked.isNotEmpty()) {
-                    isClicked[0].setBackgroundColor(root.resources.getColor(R.color.dark_grey))
-                    isClicked.removeAt(0)
-                    frame.setBackgroundColor(root.resources.getColor(R.color.red))
-                } else {
-                    isClicked.add(it)
-                    frame.setBackgroundColor(root.resources.getColor(R.color.red))
-                }
+                setSingleSelection(position)
             }
         }
     }
+    private fun setSingleSelection(adapterPosition: Int) {
+        if (adapterPosition == RecyclerView.NO_POSITION) return
+
+        notifyItemChanged(singleItemSelectionPosition)
+        singleItemSelectionPosition = adapterPosition
+        notifyItemChanged(singleItemSelectionPosition)
+    }
+
 }
 
 class RoleViewHolder(val binding: ModelPurposeNumberBinding) : RecyclerView.ViewHolder(binding.root)
+
 
 class RoleDiffUtil : DiffUtil.ItemCallback<Player>() {
     override fun areItemsTheSame(oldItem: Player, newItem: Player): Boolean =
