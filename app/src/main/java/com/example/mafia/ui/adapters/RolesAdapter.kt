@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mafia.databinding.ModelRoleBinding
-import com.example.mafia.entity.Player
+import com.example.mafia.entity.PlayerInfo
 import com.example.mafia.entity.Roles
 
 class RolesAdapter(
     private val roles: List<Roles>,
-    private val players: List<Player>
+    private val playerInfos: List<PlayerInfo>
 ): RecyclerView.Adapter<RolesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RolesViewHolder {
         return RolesViewHolder(
@@ -24,8 +24,8 @@ class RolesAdapter(
             item.purpose = player
         }
         adapter.submitList(
-            if (item.players.count { it.isDead } != item.players.size)
-                players.filter { !it.isDead }
+            if (item.playerInfos.count { it.isDead } != item.playerInfos.size)
+                playerInfos.filter { !it.isDead }
             else emptyList()
         )
         with(holder.binding) {

@@ -8,19 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.mafia.App
-import com.example.mafia.data.database.game.Game
-import com.example.mafia.databinding.FragmentHistoryBinding
-import com.example.mafia.ui.adapters.HistoryAdapter
+import com.example.mafia.R
+import com.example.mafia.databinding.FragmentHistoryGameBinding
 import com.example.mafia.ui.viewmodels.HistoryViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 
-class HistoryFragment : Fragment() {
+class HistoryGameFragment : Fragment() {
 
-    private var _binding: FragmentHistoryBinding? = null
+    private var _binding: FragmentHistoryGameBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: HistoryViewModel by viewModels {
@@ -32,24 +28,18 @@ class HistoryFragment : Fragment() {
             }
         }
     }
-    private val adapter: HistoryAdapter = HistoryAdapter { onGameClick(it) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        _binding = FragmentHistoryGameBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lastGamesList.adapter = adapter
-
-        viewModel.allGames.onEach {
-            adapter.submitList(it)
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
     }
 
@@ -58,7 +48,4 @@ class HistoryFragment : Fragment() {
         _binding = null
     }
 
-    private fun onGameClick(game: Game) {
-
-    }
 }

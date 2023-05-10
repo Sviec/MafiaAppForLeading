@@ -18,5 +18,7 @@ data class Player(
     @ColumnInfo(name = "role")
     val role: String,
     @ColumnInfo(name = "points")
-    val points: Int
+    val points: Int,
+    @ColumnInfo(name = "status")
+    val isDead: String
 )

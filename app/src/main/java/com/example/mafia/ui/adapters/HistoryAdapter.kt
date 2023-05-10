@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mafia.data.database.game.Game
 import com.example.mafia.databinding.ModelLastGameBinding
-import com.example.mafia.entity.Game
 
 class HistoryAdapter(
+    private val onItemClick: (Game) -> Unit
 ) : ListAdapter<Game, HistoryViewHolder>(HistoryDiffUtil()) {
 
 
@@ -23,6 +24,10 @@ class HistoryAdapter(
         with (holder.binding) {
             dateGame.text = item.date
             timeGame.text = item.time
+
+            root.setOnClickListener {
+                onItemClick(item)
+            }
         }
     }
 }

@@ -12,5 +12,7 @@ data class Game(
     @ColumnInfo(name = "date")
     val date: String,
     @ColumnInfo(name = "time")
-    val time: String
+    val time: String,
+    @ColumnInfo(name = "players_count")
+    val playersCount: Int
 )

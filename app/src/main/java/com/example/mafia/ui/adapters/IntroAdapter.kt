@@ -9,15 +9,14 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mafia.R
 import com.example.mafia.databinding.ModelPreviewPlayerBinding
-import com.example.mafia.entity.Player
+import com.example.mafia.entity.PlayerInfo
 import com.example.mafia.entity.Roles
 
 class IntroAdapter(
     private val rolesList: Array<Roles>,
-    private val onDeletePlayer: (Player) -> Unit
-) : ListAdapter<Player, IntroViewHolder>(IntroDiffUtil()) {
+    private val onDeletePlayer: (PlayerInfo) -> Unit
+) : ListAdapter<PlayerInfo, IntroViewHolder>(IntroDiffUtil()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IntroViewHolder {
@@ -62,10 +61,10 @@ class IntroAdapter(
 
 class IntroViewHolder(val binding: ModelPreviewPlayerBinding) : RecyclerView.ViewHolder(binding.root)
 
-class IntroDiffUtil : DiffUtil.ItemCallback<Player>() {
-    override fun areItemsTheSame(oldItem: Player, newItem: Player): Boolean =
+class IntroDiffUtil : DiffUtil.ItemCallback<PlayerInfo>() {
+    override fun areItemsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean =
         oldItem.nickname == newItem.nickname
 
-    override fun areContentsTheSame(oldItem: Player, newItem: Player): Boolean =
+    override fun areContentsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean =
         oldItem == newItem
 }

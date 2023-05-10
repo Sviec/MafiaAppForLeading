@@ -15,7 +15,6 @@ import com.example.mafia.databinding.DialogEliminatedPlayerBinding
 import com.example.mafia.databinding.DialogTransitionBinding
 import com.example.mafia.databinding.FragmentNightBinding
 import com.example.mafia.entity.NightResults
-import com.example.mafia.entity.Player
 import com.example.mafia.entity.Roles
 import com.example.mafia.ui.adapters.RolesAdapter
 import com.example.mafia.ui.viewmodels.MainViewModel
@@ -101,7 +100,7 @@ class NightFragment : Fragment() {
 
     private fun clearNightResults() {
         NightResults.values().forEach {
-            it.players.clear()
+            it.playerInfos.clear()
         }
         Roles.values().forEach {
             it.purpose = null

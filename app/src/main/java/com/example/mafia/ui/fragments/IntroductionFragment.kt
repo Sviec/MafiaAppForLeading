@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mafia.databinding.DialogAddPlayerBinding
 import com.example.mafia.databinding.DialogTransitionBinding
 import com.example.mafia.databinding.FragmentIntroductionBinding
-import com.example.mafia.entity.Player
+import com.example.mafia.entity.PlayerInfo
 import com.example.mafia.entity.Roles
 import com.example.mafia.ui.adapters.IntroAdapter
 import com.example.mafia.ui.viewmodels.MainViewModel
@@ -118,7 +118,7 @@ class IntroductionFragment : Fragment() {
                     setNickname.error = "Обязательное поле"
                 } else {
                     viewModel.addPlayer(
-                        Player(
+                        PlayerInfo(
                             nickname,
                             number.toInt(),
                             "",
@@ -156,8 +156,8 @@ class IntroductionFragment : Fragment() {
         dialog.show()
     }
 
-    private fun deletePlayer(player: Player) {
-        viewModel.deletePlayer(player)
+    private fun deletePlayer(playerInfo: PlayerInfo) {
+        viewModel.deletePlayer(playerInfo)
     }
 
 }

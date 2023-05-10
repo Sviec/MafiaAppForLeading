@@ -5,11 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mafia.databinding.ModelExposePlayerBinding
 import com.example.mafia.databinding.ModelVotingPlayerBinding
-import com.example.mafia.entity.Player
+import com.example.mafia.entity.PlayerInfo
 
-class VotingAdapter: ListAdapter<Player, VotingViewHolder>(VotingDiffUtil()) {
+class VotingAdapter: ListAdapter<PlayerInfo, VotingViewHolder>(VotingDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VotingViewHolder {
         return VotingViewHolder(
@@ -41,10 +40,10 @@ class VotingAdapter: ListAdapter<Player, VotingViewHolder>(VotingDiffUtil()) {
 
 class VotingViewHolder(val binding: ModelVotingPlayerBinding) : RecyclerView.ViewHolder(binding.root)
 
-class VotingDiffUtil : DiffUtil.ItemCallback<Player>() {
-    override fun areItemsTheSame(oldItem: Player, newItem: Player): Boolean =
+class VotingDiffUtil : DiffUtil.ItemCallback<PlayerInfo>() {
+    override fun areItemsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean =
         oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: Player, newItem: Player): Boolean =
+    override fun areContentsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean =
         oldItem.nickname == newItem.nickname
 }

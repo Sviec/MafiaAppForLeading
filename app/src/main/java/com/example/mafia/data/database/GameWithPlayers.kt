@@ -14,5 +14,4 @@ data class GameWithPlayers(
         entityColumn = "game_id"
     )
     val players: List<Player>
-
 )

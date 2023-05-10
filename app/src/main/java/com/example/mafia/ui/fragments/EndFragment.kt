@@ -6,12 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.mafia.App
 import com.example.mafia.R
 import com.example.mafia.databinding.FragmentEndBinding
 import com.example.mafia.ui.adapters.EndAdapter
+import com.example.mafia.ui.viewmodels.HistoryViewModel
 import com.example.mafia.ui.viewmodels.MainViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -23,6 +28,15 @@ class EndFragment : Fragment() {
 
     private val adapter: EndAdapter = EndAdapter()
     private val viewModel: MainViewModel by activityViewModels()
+    private val historyViewModel: HistoryViewModel by viewModels {
+        object: ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                val gameDao = (requireActivity().application as App).db.gameDao()
+                val playerDao = (requireActivity().application as App).db.playerDao()
+                return HistoryViewModel(gameDao, playerDao) as T
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +62,7 @@ class EndFragment : Fragment() {
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         binding.nextButton.setOnClickListener {
+            historyViewModel.addGame(viewModel.currentPlayersFlow.value)
             val act = EndFragmentDirections.actionEndFragmentToIntroductionFragment()
             findNavController().navigate(act)
         }

@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mafia.R
 import com.example.mafia.databinding.ModelExposePlayerBinding
-import com.example.mafia.entity.Player
+import com.example.mafia.entity.PlayerInfo
 
 class ExposeAdapter(
-) : ListAdapter<Player, ExposeViewHolder>(ExposeDiffUtil()) {
+) : ListAdapter<PlayerInfo, ExposeViewHolder>(ExposeDiffUtil()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExposeViewHolder {
@@ -41,10 +41,10 @@ class ExposeAdapter(
 
 class ExposeViewHolder(val binding: ModelExposePlayerBinding) : RecyclerView.ViewHolder(binding.root)
 
-class ExposeDiffUtil : DiffUtil.ItemCallback<Player>() {
-    override fun areItemsTheSame(oldItem: Player, newItem: Player): Boolean =
+class ExposeDiffUtil : DiffUtil.ItemCallback<PlayerInfo>() {
+    override fun areItemsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean =
         oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: Player, newItem: Player): Boolean =
+    override fun areContentsTheSame(oldItem: PlayerInfo, newItem: PlayerInfo): Boolean =
         oldItem.nickname == newItem.nickname
 }

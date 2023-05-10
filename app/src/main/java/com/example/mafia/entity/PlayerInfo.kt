@@ -1,6 +1,6 @@
 package com.example.mafia.entity
 
-data class Player(
+data class PlayerInfo(
     var nickname: String,
     var number: Int,
     var role: String?,
