@@ -2,7 +2,7 @@ package com.example.mafia
 
 import android.app.Application
 import androidx.room.Room
-import com.example.mafia.data.AppDatabase
+import com.example.mafia.data.database.AppDatabase
 
 class App : Application() {
     lateinit var db: AppDatabase

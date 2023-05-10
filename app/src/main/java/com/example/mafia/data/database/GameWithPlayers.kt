@@ -1,7 +1,9 @@
-package com.example.mafia.data
+package com.example.mafia.data.database
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.example.mafia.data.database.game.Game
+import com.example.mafia.data.database.player.Player
 
 data class GameWithPlayers(
     @Embedded

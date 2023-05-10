@@ -10,7 +10,7 @@
     <string name="add_player_button">Добавить</string>
     <string name="player_example">7 Sviec</string>
     <string name="next">Далее</string>
-    <string name="eliminated_player_title">Игру покидает игрок:</string>
+    <string name="eliminated_player_title">Игру покидает:</string>
     <string name="confirm_player_list">Подтвердить список игроков?</string>
     <string name="confirm_night_results">Подтвердить итоги ночи?</string>
     <string name="confirm_voting_results">Подтвердить итоги голосования?</string>

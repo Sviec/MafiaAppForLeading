@@ -44,6 +44,7 @@ class IntroductionFragment : Fragment() {
 
         binding.listPlayers.adapter = adapter
 
+        viewModel.nightNumber = 0
         viewModel.currentPlayersFlow.onEach {
             adapter.submitList(it)
             it.onEach { player ->

@@ -23,6 +23,7 @@ class EndAdapter(
         with (holder.binding) {
             nickname.text = item.nickname
             number.text = item.number.toString()
+            role.text = item.role
             points.text = "+${item.points}"
         }
     }

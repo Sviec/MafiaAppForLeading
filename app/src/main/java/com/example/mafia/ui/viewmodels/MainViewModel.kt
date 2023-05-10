@@ -6,8 +6,10 @@ import com.example.mafia.entity.Player
 import com.example.mafia.entity.Roles
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.toList
 
 class MainViewModel : ViewModel() {
+    var nightNumber = 0
     private val currentPlayersList = mutableListOf<Player>()
 
     private val _currentPlayersFlow = MutableStateFlow<List<Player>>(emptyList())
@@ -28,6 +30,35 @@ class MainViewModel : ViewModel() {
             it.players = currentPlayersFlow.value.filter { player ->
                 player.role == it.name_ru
             }
+        }
+    }
+
+    fun votingResults() {
+        val exposePlayers = currentPlayersFlow.value.filter { it.isExpose }
+        if ((nightNumber == 0 && exposePlayers.size == 1) ||
+            exposePlayers.isEmpty()
+        ) {
+            currentPlayersFlow.value.filter {
+                it.isExpose
+            }.forEach { it.isExpose = false }
+        } else {
+            val maxVotes = currentPlayersFlow.value.maxBy { it.votes }.votes
+            currentPlayersFlow.value.forEach {
+                if (it.votes != maxVotes) it.isExpose = false
+            }
+        }
+    }
+
+    fun clearVotingInfo() {
+        currentPlayersFlow.value.forEach {
+            it.votes = 0
+            it.isExpose = false
+        }
+    }
+
+    fun clearVotes() {
+        currentPlayersFlow.value.forEach {
+            it.votes = 0
         }
     }
 
@@ -119,13 +150,21 @@ class MainViewModel : ViewModel() {
     fun printNightResults(): String {
         var results = ""
         if (NightResults.LastDeath.players.isNotEmpty())
-            results += "Убиты игроки ${NightResults.LastDeath.players.forEach { it.number }}\n"
+            results += "Убиты игроки ${NightResults.LastDeath.players.joinToString(", ") {
+                it.number.toString()
+            }}\n"
         if (NightResults.LastDeathByWhore.players.isNotEmpty())
-            results += "Красотка забрала ${NightResults.LastDeathByWhore.players.forEach { it.number }}"
+            results += "Красотка забрала ${NightResults.LastDeathByWhore.players.joinToString(", ") {
+                it.number.toString()
+            }}\n"
         if (NightResults.LastSavedByDoctor.players.isNotEmpty())
-            results += "Доктор спас ${NightResults.LastSavedByDoctor.players.forEach { it.number }}"
+            results += "Доктор спас ${NightResults.LastSavedByDoctor.players.joinToString(", ") {
+                it.number.toString()
+            }}\n"
         if (NightResults.LastSavedByWhore.players.isNotEmpty())
-            results += "Красотка спасла ${NightResults.LastSavedByWhore.players.forEach { it.number }}"
+            results += "Красотка спасла ${NightResults.LastSavedByWhore.players.joinToString(", ") {
+                it.number.toString()
+            }}\n"
         return results
     }
 
@@ -137,7 +176,7 @@ class MainViewModel : ViewModel() {
         val maniacCount = currentPlayersFlow.value
             .count { !it.isDead && it.role == Roles.Maniac.name_ru }
 
-        return if (mafiaCount > 0 && maniacCount >= peacefulCount && maniacCount == 0) {
+        return if (mafiaCount > 0 && mafiaCount >= peacefulCount && maniacCount == 0) {
             // mafia wins
             setPoints(2)
             2
@@ -145,7 +184,7 @@ class MainViewModel : ViewModel() {
             // peaceful wins
             setPoints(1)
             1
-        } else if (mafiaCount == 0 && maniacCount > 0 && peacefulCount == 0) {
+        } else if (mafiaCount == 0 && maniacCount > 0 && maniacCount >= peacefulCount) {
             // maniac wins
             setPoints(3)
             3
@@ -196,8 +235,7 @@ class MainViewModel : ViewModel() {
                     .count { it.role == Roles.Mafia.name_ru }
 
                 if (mafiaCount > 0 && mafiaCount == maniacCount) {
-                    currentPlayersFlow.value
-                        .forEach { player ->
+                    currentPlayersFlow.value.forEach { player ->
                             if (player.role == Roles.Maniac.name_ru) {
                                 Roles.Maniac.players.forEach { maniac ->
                                     maniac.points += 2

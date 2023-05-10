@@ -40,6 +40,7 @@ class NightFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.categoryTitle.text = "Ночь ${viewModel.nightNumber}"
         adapter = RolesAdapter(
             Roles.values().filter { it.priority < 10 },
             viewModel.currentPlayersFlow.value
@@ -84,9 +85,7 @@ class NightFragment : Fragment() {
             .create()
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialogBinding.nextButton.setOnClickListener {
-            NightResults.values().forEach {
-                it.players.clear()
-            }
+            clearNightResults()
             val winner = viewModel.checkWin()
             if (winner > 0) {
                 val act = NightFragmentDirections.actionNightFragmentToEndFragment(winner)
@@ -98,5 +97,14 @@ class NightFragment : Fragment() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    private fun clearNightResults() {
+        NightResults.values().forEach {
+            it.players.clear()
+        }
+        Roles.values().forEach {
+            it.purpose = null
+        }
     }
 }

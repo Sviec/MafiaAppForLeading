@@ -1,4 +1,4 @@
-package com.example.mafia.data
+package com.example.mafia.data.database.game
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
