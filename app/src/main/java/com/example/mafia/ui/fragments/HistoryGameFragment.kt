@@ -8,10 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.mafia.App
 import com.example.mafia.R
 import com.example.mafia.databinding.FragmentHistoryGameBinding
+import com.example.mafia.ui.adapters.EndAdapter
+import com.example.mafia.ui.adapters.HistoryGameAdapter
 import com.example.mafia.ui.viewmodels.HistoryViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 
 class HistoryGameFragment : Fragment() {
@@ -28,6 +36,7 @@ class HistoryGameFragment : Fragment() {
             }
         }
     }
+    private val adapter = HistoryGameAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +49,17 @@ class HistoryGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val gameDate = navArgs<HistoryGameFragmentArgs>().value.gameDate
 
+        binding.playersList.adapter = adapter
+        viewModel.getPlayers(gameDate).onEach {
+            adapter.submitList(it)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        binding.back.setOnClickListener {
+            val act = HistoryGameFragmentDirections.actionHistoryGameFragmentToHistoryFragment()
+            findNavController().navigate(act)
+        }
     }
 
     override fun onDestroy() {

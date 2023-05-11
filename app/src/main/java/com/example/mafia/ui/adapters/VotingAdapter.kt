@@ -21,18 +21,19 @@ class VotingAdapter: ListAdapter<PlayerInfo, VotingViewHolder>(VotingDiffUtil())
         with (holder.binding) {
             nickname.text = item.nickname
             number.text = item.number.toString()
+            votesEditable.setText(item.votes.toString())
             minusButton.setOnClickListener {
                 if (votesEditable.text.toString().toInt() != 0) {
-                    votesEditable.setText((votesEditable.text.toString().toInt() - 1).toString())
                     item.votes--
+                    votesEditable.setText(item.votes.toString())
                 } else {
                     it.isClickable = false
                 }
             }
             plusButton.setOnClickListener {
                 minusButton.isClickable = true
-                votesEditable.setText((votesEditable.text.toString().toInt() + 1).toString())
                 item.votes++
+                votesEditable.setText(item.votes.toString())
             }
         }
     }

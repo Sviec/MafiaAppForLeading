@@ -7,14 +7,15 @@ import com.example.mafia.data.database.game.GameDao
 import com.example.mafia.data.database.player.Player
 import com.example.mafia.data.database.player.PlayerDao
 import com.example.mafia.entity.PlayerInfo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import java.time.LocalDate
-import java.time.LocalTime
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 
 class HistoryViewModel(
     private val gameDao: GameDao,
     private val playerDao: PlayerDao
-    ): ViewModel() {
+) : ViewModel() {
 
     val allGames: StateFlow<List<Game>> = this.gameDao.getAll().stateIn(
         scope = viewModelScope,
@@ -22,32 +23,40 @@ class HistoryViewModel(
         initialValue = emptyList()
     )
 
-    fun getPlayers(gameId: Int) : Flow<List<Player>> {
-        return playerDao.getAll(gameId)
+    private val _players = MutableStateFlow<List<Player>>(emptyList())
+    val players = _players.asStateFlow()
+
+    fun getPlayers(gameDate: String) : StateFlow<List<Player>> {
+        return playerDao.getAll(gameDate).stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = emptyList()
+        )
     }
 
     fun addGame(playersInfo: List<PlayerInfo>) {
-        gameDao.insert(
-            Game(
-                id = 0,
-                date = LocalDate.now().toString(),
-                time = LocalTime.now().toString(),
-                playersCount = playersInfo.size
-            )
-        )
-        playersInfo.forEach {
-            playerDao.insert(
-                Player(
-                    id = 0,
-                    gameId = 0,
-                    nickname = it.nickname,
-                    number = it.number,
-                    role = it.role!!,
-                    points = it.points,
-                    isDead = if (it.isDead) "Мертв" else "Жив"
+        val date = LocalDateTime.now().toString()
+        viewModelScope.launch(Dispatchers.IO) {
+            gameDao.insert(
+                Game(
+                    date = date,
+                    playersCount = playersInfo.size
                 )
             )
+            playersInfo.forEach {
+                playerDao.insert(
+                    Player(
+                        gameDate = date,
+                        nickname = it.nickname,
+                        number = it.number,
+                        role = it.role!!,
+                        points = it.points,
+                        isDead = if (it.isDead) "Мертв" else "Жив"
+                    )
+                )
+            }
         }
+
     }
 
     fun deleteGame(game: Game) {

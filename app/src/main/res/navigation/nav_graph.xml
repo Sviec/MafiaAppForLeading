@@ -30,7 +30,11 @@
         android:id="@+id/historyFragment"
         android:name="com.example.mafia.ui.fragments.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_historyGameFragment"
+            app:destination="@id/historyGameFragment" />
+    </fragment>
     <fragment
         android:id="@+id/votingFragment"
         android:name="com.example.mafia.ui.fragments.VotingFragment"
@@ -76,5 +80,17 @@
         <action
             android:id="@+id/action_endFragment_to_introductionFragment"
             app:destination="@id/introductionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyGameFragment"
+        android:name="com.example.mafia.ui.fragments.HistoryGameFragment"
+        android:label="fragment_history_game"
+        tools:layout="@layout/fragment_history_game" >
+        <argument
+            android:name="gameDate"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_historyGameFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
 </navigation>

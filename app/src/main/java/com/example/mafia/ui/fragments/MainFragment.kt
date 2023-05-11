@@ -27,15 +27,20 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            binding.swapThemeButton.setImageResource(R.drawable.ic_baseline_mode_night_24)
+        }
+        else {
+            binding.swapThemeButton.setImageResource(R.drawable.ic_baseline_wb_sunny_24)
+        }
         binding.swapThemeButton.setOnClickListener {
             if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                binding.swapThemeButton.setImageResource(R.drawable.ic_baseline_wb_sunny_24)
+                binding.swapThemeButton.setImageResource(R.drawable.ic_baseline_mode_night_24)
             }
             else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                binding.swapThemeButton.setImageResource(R.drawable.ic_baseline_mode_night_24)
+                binding.swapThemeButton.setImageResource(R.drawable.ic_baseline_wb_sunny_24)
             }
         }
 
@@ -50,5 +55,4 @@ class MainFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }

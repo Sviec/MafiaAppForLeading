@@ -61,8 +61,9 @@ class EndFragment : Fragment() {
             adapter.submitList(it)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
 
+        historyViewModel.addGame(viewModel.currentPlayersFlow.value)
+
         binding.nextButton.setOnClickListener {
-            historyViewModel.addGame(viewModel.currentPlayersFlow.value)
             val act = EndFragmentDirections.actionEndFragmentToIntroductionFragment()
             findNavController().navigate(act)
         }

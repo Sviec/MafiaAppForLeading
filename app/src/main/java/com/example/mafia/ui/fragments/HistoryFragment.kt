@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.mafia.App
 import com.example.mafia.data.database.game.Game
 import com.example.mafia.databinding.FragmentHistoryBinding
@@ -59,6 +60,7 @@ class HistoryFragment : Fragment() {
     }
 
     private fun onGameClick(game: Game) {
-
+        val act = HistoryFragmentDirections.actionHistoryFragmentToHistoryGameFragment(game.date)
+        findNavController().navigate(act)
     }
 }

@@ -23,7 +23,7 @@ class HistoryAdapter(
         val item = getItem(position)
         with (holder.binding) {
             dateGame.text = item.date
-            timeGame.text = item.time
+            playersCount.text = item.playersCount.toString()
 
             root.setOnClickListener {
                 onItemClick(item)

@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
 data class Player(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    val id: Int,
-    @ColumnInfo(name = "game_id")
-    val gameId: Int,
+    val id: Int? = null,
+    @ColumnInfo(name = "game_date")
+    val gameDate: String,
     @ColumnInfo(name = "number")
     val number: Int,
     @ColumnInfo(name = "nickname")

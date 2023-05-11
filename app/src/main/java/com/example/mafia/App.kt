@@ -10,18 +10,13 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        INSTANCE = this
         db = Room
-            .inMemoryDatabaseBuilder(
-                applicationContext,
-                AppDatabase::class.java
+            .databaseBuilder(
+                this,
+                AppDatabase::class.java,
+                "db"
             )
-            .fallbackToDestructiveMigration()
             .build()
     }
 
-    companion object {
-        lateinit var INSTANCE: App
-            private set
-    }
 }
