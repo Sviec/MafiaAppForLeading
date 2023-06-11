@@ -177,22 +177,18 @@ class MainViewModel : ViewModel() {
 
         return if (mafiaCount > 0 && mafiaCount >= peacefulCount && maniacCount == 0) {
             // mafia wins
-            setPoints(2)
-            2
+            setPoints(2); 2
         } else if (mafiaCount == 0 && maniacCount == 0 && peacefulCount > 0) {
             // peaceful wins
-            setPoints(1)
-            1
+            setPoints(1); 1
         } else if (mafiaCount == 0 && maniacCount > 0 && maniacCount >= peacefulCount) {
             // maniac wins
-            setPoints(3)
-            3
+            setPoints(3); 3
         } else if ((maniacCount == mafiaCount && mafiaCount > 0 && peacefulCount == 0) ||
             (mafiaCount == 0 && maniacCount == 0 && peacefulCount == 0)
         ) {
             // draw
-            setPoints(4)
-            4
+            setPoints(4); 4
         } else 0
     }
 
@@ -228,23 +224,16 @@ class MainViewModel : ViewModel() {
                     }
             }
             4 -> {
-                val maniacCount = currentPlayersFlow.value
-                    .count { it.role == Roles.Maniac.name_ru }
-                val mafiaCount = currentPlayersFlow.value
-                    .count { it.role == Roles.Mafia.name_ru }
-
-                if (mafiaCount > 0 && mafiaCount == maniacCount) {
-                    currentPlayersFlow.value.forEach { player ->
-                            if (player.role == Roles.Maniac.name_ru) {
-                                Roles.Maniac.playerInfos.forEach { maniac ->
-                                    maniac.points += 2
-                                }
-                            } else if (player.role == Roles.Mafia.name_ru) {
-                                Roles.Mafia.playerInfos.forEach { mafia ->
-                                    mafia.points += 1
-                                }
-                            }
+                currentPlayersFlow.value.forEach { player ->
+                    if (player.role == Roles.Maniac.name_ru) {
+                        Roles.Maniac.playerInfos.forEach { maniac ->
+                            maniac.points += 2
                         }
+                    } else if (player.role == Roles.Mafia.name_ru) {
+                        Roles.Mafia.playerInfos.forEach { mafia ->
+                            mafia.points += 1
+                        }
+                    }
                 }
             }
         }

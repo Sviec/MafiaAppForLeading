@@ -11,6 +11,6 @@ interface GameDao {
     fun getAll(): Flow<List<Game>>
     @Insert
     fun insert(game: Game)
-    @Delete
-    fun delete(game: Game)
+    @Query("DELETE FROM games WHERE :gameDate == date")
+    fun delete(gameDate: String)
 }

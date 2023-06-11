@@ -60,6 +60,10 @@ class HistoryGameFragment : Fragment() {
             val act = HistoryGameFragmentDirections.actionHistoryGameFragmentToHistoryFragment()
             findNavController().navigate(act)
         }
+
+        binding.deleteGame.setOnClickListener {
+            viewModel.deleteGame(gameDate)
+        }
     }
 
     override fun onDestroy() {
